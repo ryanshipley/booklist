@@ -31,7 +31,7 @@ app.post('/books', (req, res) => {
 	}
     
 	Book.create(req.body, (error, createdBook) => {
-		res.send(createdBook);
+		res.redirect("/books");
 	});
 });
 
