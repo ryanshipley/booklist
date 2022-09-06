@@ -20,6 +20,13 @@ app.use(express.urlencoded({ extended: true}));
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`server is listening on port: ${PORT}`));
 
-app.post("/books", (req, res) =>{
-    res.send(req.body);
+app.post('/books', (req, res) => {
+	if (req.body.completed === 'on') {
+		//if checked, req.body.completed is set to 'on'
+		req.body.completed = true;
+	} else {
+		//if not checked, req.body.completed is undefined
+		req.body.completed = false;
+	}
+	res.send(req.body);
 });
