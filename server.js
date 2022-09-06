@@ -35,6 +35,14 @@ app.post('/books', (req, res) => {
 	});
 });
 
+app.get('/books', (req, res) => {
+	Book.find({}, (error, allBooks) => {
+		res.render('index.ejs', {
+			books: allBooks,
+		});
+	});
+});
+
 app.get('/books/new', (req, res) => {
 	res.render('new.ejs');
 });
