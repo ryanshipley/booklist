@@ -51,7 +51,9 @@ app.get('/books/new', (req, res) => {
 // Show
 app.get('/books/:id', (req, res) => {
 	Book.findById(req.params.id, (err, foundBook) => {
-		res.send(foundBook);
+		res.render('show.ejs', {
+			book: foundBook,
+		});
 	});
 });
 
