@@ -47,6 +47,15 @@ app.get('/books/new', (req, res) => {
 	res.render('new.ejs');
 });
 
+
+// Show
+app.get('/books/:id', (req, res) => {
+	Book.findById(req.params.id, (err, foundBook) => {
+		res.send(foundBook);
+	});
+});
+
+
 // Listener
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`server is listening on port: ${PORT}`));
