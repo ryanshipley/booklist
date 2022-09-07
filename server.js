@@ -48,10 +48,22 @@ app.get('/books/new', (req, res) => {
 	res.render('new.ejs');
 });
 
+// Delete
 app.delete("/books/:id", (req, res) => {
-	res.send("deleting...")
+	Book.findByIdAndDelete(req.params.id, (err, data) => {
+	  res.redirect("/books")
+	})
   })
 
+
+// Edit
+app.get("/books/:id/edit", (req, res) => {
+	Book.findById(req.params.id, (error, foundBook) => {
+	  res.render("edit.ejs", {
+		book: foundBook,
+	  })
+	})
+  })
 
 // Show
 app.get('/books/:id', (req, res) => {
