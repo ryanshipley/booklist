@@ -14,7 +14,9 @@
 		<ul>
 			<% books.forEach(book => { %>
             <li><a href="/books/<%=book._id; %>"> <%=book.title; %> </a></li>
-
+					<form>
+						<input type="submit" value="DELETE">
+					</form>
 			<% }) %>
 		</ul>
 	</body>
