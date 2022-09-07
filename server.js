@@ -21,20 +21,6 @@ app.use(express.urlencoded({ extended: true}));
 app.use(methodOverride("_method"));
 // ROUTES
 
-// CREATE
-app.post('/books', (req, res) => {
-	if (req.body.completed === 'on') {
-		//if checked, req.body.completed is set to 'on'
-		req.body.completed = true;
-	} else {
-		//if not checked, req.body.completed is undefined
-		req.body.completed = false;
-	}
-    
-	Book.create(req.body, (error, createdBook) => {
-		res.redirect("/books");
-	});
-});
 
 app.get('/books', (req, res) => {
 	Book.find({}, (error, allBooks) => {
@@ -51,10 +37,43 @@ app.get('/books/new', (req, res) => {
 // Delete
 app.delete("/books/:id", (req, res) => {
 	Book.findByIdAndDelete(req.params.id, (err, data) => {
-	  res.redirect("/books")
+		res.redirect("/books")
 	})
-  })
+})
 
+// Update
+app.put("/books/:id", (req, res) => {
+	if (req.body.completed === "on") {
+	  req.body.completed = true
+	} else {
+	  req.body.completed = false
+	}
+  
+	Book.findByIdAndUpdate(
+	  req.params.id,
+	  req.body,
+	  {
+		new: true,
+	  },
+	  (error, updatedBook) => {
+		res.redirect(`/books/${req.params.id}`)
+	  }
+	)
+  })
+// CREATE
+app.post('/books', (req, res) => {
+	if (req.body.completed === 'on') {
+		//if checked, req.body.completed is set to 'on'
+		req.body.completed = true;
+	} else {
+		//if not checked, req.body.completed is undefined
+		req.body.completed = false;
+	}
+	
+	Book.create(req.body, (error, createdBook) => {
+		res.redirect("/books");
+	});
+});
 
 // Edit
 app.get("/books/:id/edit", (req, res) => {
