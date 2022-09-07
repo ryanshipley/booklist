@@ -48,9 +48,9 @@ app.get('/books/new', (req, res) => {
 	res.render('new.ejs');
 });
 
-app.delete("/books/:id", (req, res)=>{
-	res.send("deleting...");
-});
+app.delete("/books/:id", (req, res) => {
+	res.send("deleting...")
+  })
 
 
 // Show
